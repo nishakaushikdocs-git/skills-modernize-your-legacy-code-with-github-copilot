@@ -44,8 +44,9 @@ class DataStore {
 // ============================================================================
 // Implements business logic for account operations
 class AccountOperations {
-  constructor(dataStore) {
+  constructor(dataStore, promptFn = null) {
     this.dataStore = dataStore;
+    this.prompt = promptFn || require('prompt-sync')();
   }
 
   /**
@@ -62,7 +63,7 @@ class AccountOperations {
    * Maps to COBOL 'CREDIT' operation
    */
   creditAccount() {
-    const amountInput = prompt('Enter credit amount: ');
+    const amountInput = this.prompt('Enter credit amount: ');
     const amount = parseFloat(amountInput);
 
     // Validate input
@@ -83,7 +84,7 @@ class AccountOperations {
    * Includes validation for insufficient funds
    */
   debitAccount() {
-    const amountInput = prompt('Enter debit amount: ');
+    const amountInput = this.prompt('Enter debit amount: ');
     const amount = parseFloat(amountInput);
 
     // Validate input
